@@ -11,6 +11,7 @@ setup(
     install_requires=[
         'Flask',
         'Requests',
+        'gunicorn',
     ],
     entry_points={
     },
