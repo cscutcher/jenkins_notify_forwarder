@@ -20,10 +20,11 @@ No Git consumers using SCM API plugin for: {url}
 
 
 app = Flask(__name__)
-app.config.from_envvar('JENKINS_NOTIFY_FORWARDER_SETTINGS')
 
 if 'JENKINS_SERVERS' in os.environ:
     app.config['DOWNSTREAM'] = os.environ['JENKINS_SERVERS'].split(',')
+elif 'JENKINS_NOTIFY_FORWARDER_SETTINGS' in os.environ:
+    app.config.from_envvar('JENKINS_NOTIFY_FORWARDER_SETTINGS')
 
 
 @app.route('/' + JENKINS_NOTIFY_URL)
