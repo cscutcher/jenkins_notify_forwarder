@@ -5,6 +5,7 @@ Forwards jenkins scm notifications to multiple jenkins instances
 from urllib.parse import urljoin
 import logging
 import sys
+import os
 
 from flask import Flask
 from flask import request
@@ -20,6 +21,9 @@ No Git consumers using SCM API plugin for: {url}
 
 app = Flask(__name__)
 app.config.from_envvar('JENKINS_NOTIFY_FORWARDER_SETTINGS')
+
+if 'JENKINS_SERVERS' in os.environ:
+    app.config['DOWNSTREAM'] = os.environ['JENKINS_SERVERS'].split(',')
 
 
 @app.route('/' + JENKINS_NOTIFY_URL)
